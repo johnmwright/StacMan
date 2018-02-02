@@ -1,17 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class BackoffTests
     {
-        [TestMethod]
+        [Fact]
         public void Backoff_test()
         {
             var mockSlow = new Mock<StacManClient>(null, null);
@@ -32,11 +29,11 @@ namespace StackExchange.StacMan.Tests
                 verifyElapsedMs(stopwatch.ElapsedMilliseconds);
             };
 
-            measure(clientSlow, elapsedMs => Assert.IsTrue(elapsedMs >= 1000));
-            measure(clientFast, elapsedMs => Assert.IsTrue(elapsedMs < 1000));
+            measure(clientSlow, elapsedMs => Assert.True(elapsedMs >= 1000));
+            measure(clientFast, elapsedMs => Assert.True(elapsedMs < 1000));
 
             clientSlow.RespectBackoffs = false;
-            measure(clientSlow, elapsedMs => Assert.IsTrue(elapsedMs < 1000));
+            measure(clientSlow, elapsedMs => Assert.True(elapsedMs < 1000));
         }
     }
 }

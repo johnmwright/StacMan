@@ -1,14 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class ValidationTests
     {
         public ValidationTests()
@@ -20,7 +17,7 @@ namespace StackExchange.StacMan.Tests
 
         private readonly StacManClient Client;
 
-        [TestMethod]
+        [Fact]
         public void Invalidates_null_or_empty_site()
         {
             Client.Users.GetByIds("stackoverflow", new int[] { 1, 2, 3 });
@@ -28,7 +25,7 @@ namespace StackExchange.StacMan.Tests
             Assert2.ThrowsArgumentException(() => Client.Users.GetByIds(String.Empty, new int[] { 1, 2, 3 }), "site");
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalidates_null_or_empty_vector()
         {
             Client.Users.GetByIds("stackoverflow", new int[] { 1, 2, 3 });
@@ -40,7 +37,7 @@ namespace StackExchange.StacMan.Tests
             Assert2.ThrowsArgumentException(() => Client.Filters.Read(new string[0]), "filters");
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalidates_bad_paging()
         {
             Client.Users.GetByIds("stackoverflow", new int[] { 1, 2, 3 }, page: 1, pagesize: 0);
@@ -48,7 +45,7 @@ namespace StackExchange.StacMan.Tests
             Assert2.ThrowsArgumentException(() => Client.Users.GetByIds("stackoverflow", new int[] { 1, 2, 3 }, page: 10, pagesize: -1), "pagesize");
         }
 
-        [TestMethod]
+        [Fact]
         public void Invalidates_bad_sorts()
         {
             var today = DateTime.UtcNow;

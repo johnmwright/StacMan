@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class WrapperTests
     {
-        [TestMethod]
+        [Fact]
         public void Wrapper_fields_test()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -26,18 +22,18 @@ namespace StackExchange.StacMan.Tests
             var result = client.Badges.GetAll("stackoverflow", page: 2, pagesize: 5, filter: "!*bOpvmsY(F)").Result;
             var wrapper = result.Data;
 
-            Assert.AreEqual(1713, wrapper.Total);
-            Assert.AreEqual(5, wrapper.PageSize);
-            Assert.AreEqual(2, wrapper.Page);
-            Assert.AreEqual(5, wrapper.Items.Length);
-            Assert.AreEqual("badge", wrapper.Type);
-            Assert.AreEqual(273, wrapper.QuotaRemaining);
-            Assert.AreEqual(300, wrapper.QuotaMax);
-            Assert.AreEqual(true, wrapper.HasMore);
-            Assert.IsNull(wrapper.Backoff);
-            Assert.IsNull(wrapper.ErrorId);
-            Assert.IsNull(wrapper.ErrorName);
-            Assert.IsNull(wrapper.ErrorMessage);
+            Assert.Equal(1713, wrapper.Total);
+            Assert.Equal(5, wrapper.PageSize);
+            Assert.Equal(2, wrapper.Page);
+            Assert.Equal(5, wrapper.Items.Length);
+            Assert.Equal("badge", wrapper.Type);
+            Assert.Equal(273, wrapper.QuotaRemaining);
+            Assert.Equal(300, wrapper.QuotaMax);
+            Assert.Equal(true, wrapper.HasMore);
+            Assert.Null(wrapper.Backoff);
+            Assert.Null(wrapper.ErrorId);
+            Assert.Null(wrapper.ErrorName);
+            Assert.Null(wrapper.ErrorMessage);
         }
     }
 }

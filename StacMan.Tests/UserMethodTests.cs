@@ -1,17 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System.Linq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class UserMethodTests
     {
-        [TestMethod]
+        [Fact]
         public void Users_get_all_test()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -22,35 +19,35 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Users.GetAll("webapps", pagesize: 1, order: Order.Desc, min: 1, max: 1000, sort: Users.Sort.Reputation, inname: "doug").Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var user = result.Data.Items.Single();
-            Assert.AreEqual(183, user.UserId);
-            Assert.AreEqual(Users.UserType.Registered, user.UserType);
-            Assert.AreEqual("Doug Harris", user.DisplayName);
-            Assert.AreEqual("http://www.gravatar.com/avatar/731e7de87c241fce562d03b23770b5cf?d=identicon&r=PG", user.ProfileImage);
-            Assert.AreEqual(545, user.Reputation);
-            Assert.AreEqual(0, user.ReputationChangeDay);
-            Assert.AreEqual(0, user.ReputationChangeWeek);
-            Assert.AreEqual(0, user.ReputationChangeMonth);
-            Assert.AreEqual(0, user.ReputationChangeQuarter);
-            Assert.AreEqual(15, user.ReputationChangeYear);
-            Assert.AreEqual(92, user.Age);
-            Assert.AreEqual(1332536617L.ToDateTime(), user.LastAccessDate);
-            Assert.AreEqual(1332297406L.ToDateTime(), user.LastModifiedDate);
-            Assert.IsFalse(user.IsEmployee);
-            Assert.AreEqual("http://webapps.stackexchange.com/users/183/doug-harris", user.Link);
-            Assert.AreEqual("http://delicious.com/dharris", user.WebsiteUrl);
-            Assert.AreEqual("Washington, DC", user.Location);
-            Assert.AreEqual(46903, user.AccountId);
-            Assert.AreEqual(1, user.BadgeCounts.Gold);
-            Assert.AreEqual(4, user.BadgeCounts.Silver);
-            Assert.AreEqual(8, user.BadgeCounts.Bronze);
-            Assert.AreEqual(25, user.AcceptRate);
-            Assert.IsNull(user.TimedPenaltyDate);
+            Assert.Equal(183, user.UserId);
+            Assert.Equal(Users.UserType.Registered, user.UserType);
+            Assert.Equal("Doug Harris", user.DisplayName);
+            Assert.Equal("http://www.gravatar.com/avatar/731e7de87c241fce562d03b23770b5cf?d=identicon&r=PG", user.ProfileImage);
+            Assert.Equal(545, user.Reputation);
+            Assert.Equal(0, user.ReputationChangeDay);
+            Assert.Equal(0, user.ReputationChangeWeek);
+            Assert.Equal(0, user.ReputationChangeMonth);
+            Assert.Equal(0, user.ReputationChangeQuarter);
+            Assert.Equal(15, user.ReputationChangeYear);
+            Assert.Equal(92, user.Age);
+            Assert.Equal(1332536617L.ToDateTime(), user.LastAccessDate);
+            Assert.Equal(1332297406L.ToDateTime(), user.LastModifiedDate);
+            Assert.False(user.IsEmployee);
+            Assert.Equal("http://webapps.stackexchange.com/users/183/doug-harris", user.Link);
+            Assert.Equal("http://delicious.com/dharris", user.WebsiteUrl);
+            Assert.Equal("Washington, DC", user.Location);
+            Assert.Equal(46903, user.AccountId);
+            Assert.Equal(1, user.BadgeCounts.Gold);
+            Assert.Equal(4, user.BadgeCounts.Silver);
+            Assert.Equal(8, user.BadgeCounts.Bronze);
+            Assert.Equal(25, user.AcceptRate);
+            Assert.Null(user.TimedPenaltyDate);
         }
 
-        [TestMethod]
+        [Fact]
         public void Users_get_associated_test()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -61,22 +58,22 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Users.GetAssociated(new int[] { 1998 }, pagesize: 2).Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var networkUser = result.Data.Items.First();
-            Assert.AreEqual("Stack Overflow", networkUser.SiteName);
-            Assert.AreEqual("http://stackoverflow.com", networkUser.SiteUrl);
-            Assert.AreEqual(2749, networkUser.UserId);
-            Assert.AreEqual(4365, networkUser.Reputation);
-            Assert.AreEqual(1998, networkUser.AccountId);
-            Assert.AreEqual(1219613204L.ToDateTime(), networkUser.CreationDate);
-            Assert.AreEqual(1, networkUser.BadgeCounts.Gold);
-            Assert.AreEqual(13, networkUser.BadgeCounts.Silver);
-            Assert.AreEqual(26, networkUser.BadgeCounts.Bronze);
-            Assert.AreEqual(1334611626L.ToDateTime(), networkUser.LastAccessDate);
-            Assert.AreEqual(144, networkUser.AnswerCount);
-            Assert.AreEqual(20, networkUser.QuestionCount);
-            Assert.AreEqual(default(StackExchange.StacMan.Users.UserType), networkUser.UserType);
+            Assert.Equal("Stack Overflow", networkUser.SiteName);
+            Assert.Equal("http://stackoverflow.com", networkUser.SiteUrl);
+            Assert.Equal(2749, networkUser.UserId);
+            Assert.Equal(4365, networkUser.Reputation);
+            Assert.Equal(1998, networkUser.AccountId);
+            Assert.Equal(1219613204L.ToDateTime(), networkUser.CreationDate);
+            Assert.Equal(1, networkUser.BadgeCounts.Gold);
+            Assert.Equal(13, networkUser.BadgeCounts.Silver);
+            Assert.Equal(26, networkUser.BadgeCounts.Bronze);
+            Assert.Equal(1334611626L.ToDateTime(), networkUser.LastAccessDate);
+            Assert.Equal(144, networkUser.AnswerCount);
+            Assert.Equal(20, networkUser.QuestionCount);
+            Assert.Equal(default(StackExchange.StacMan.Users.UserType), networkUser.UserType);
         }
     }
 }

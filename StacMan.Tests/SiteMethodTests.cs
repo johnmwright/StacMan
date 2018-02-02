@@ -1,17 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System.Linq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class SiteMethodTests
     {
-        [TestMethod]
+        [Fact]
         public void Sites_get_all_test()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -22,28 +19,28 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Sites.GetAll(filter: "default", page: 1, pagesize: 1).Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var site = result.Data.Items.Single();
 
-            Assert.AreEqual("main_site", site.SiteType);
-            Assert.AreEqual("Stack Overflow", site.Name);
-            Assert.AreEqual("http://cdn.sstatic.net/stackoverflow/img/logo.png", site.LogoUrl);
-            Assert.AreEqual("stackoverflow", site.ApiSiteParameter);
-            Assert.AreEqual("http://stackoverflow.com", site.SiteUrl);
-            Assert.AreEqual("professional and enthusiast programmers", site.Audience);
-            Assert.AreEqual("http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png", site.IconUrl);
-            Assert.AreEqual("http://www.stackoverflow.com", site.Aliases.Single());
-            Assert.AreEqual(StacMan.Sites.SiteState.Normal, site.SiteState);
-            Assert.AreEqual("#0077CC", site.Styling.LinkColor);
-            Assert.AreEqual("#3E6D8E", site.Styling.TagForegroundColor);
-            Assert.AreEqual("#E0EAF1", site.Styling.TagBackgroundColor);
-            Assert.AreEqual(1221436800L.ToDateTime(), site.LaunchDate);
-            Assert.AreEqual("http://cdn.sstatic.net/stackoverflow/img/favicon.ico", site.FaviconUrl);
-            Assert.AreEqual("Stack Overflow Chat", site.RelatedSites.Single().Name);
-            Assert.AreEqual("http://chat.stackoverflow.com", site.RelatedSites.Single().SiteUrl);
-            Assert.AreEqual("chat", site.RelatedSites.Single().Relation);
-            Assert.AreEqual("Prettify", site.MarkdownExtensions.Single());
+            Assert.Equal("main_site", site.SiteType);
+            Assert.Equal("Stack Overflow", site.Name);
+            Assert.Equal("http://cdn.sstatic.net/stackoverflow/img/logo.png", site.LogoUrl);
+            Assert.Equal("stackoverflow", site.ApiSiteParameter);
+            Assert.Equal("http://stackoverflow.com", site.SiteUrl);
+            Assert.Equal("professional and enthusiast programmers", site.Audience);
+            Assert.Equal("http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png", site.IconUrl);
+            Assert.Equal("http://www.stackoverflow.com", site.Aliases.Single());
+            Assert.Equal(StacMan.Sites.SiteState.Normal, site.SiteState);
+            Assert.Equal("#0077CC", site.Styling.LinkColor);
+            Assert.Equal("#3E6D8E", site.Styling.TagForegroundColor);
+            Assert.Equal("#E0EAF1", site.Styling.TagBackgroundColor);
+            Assert.Equal(1221436800L.ToDateTime(), site.LaunchDate);
+            Assert.Equal("http://cdn.sstatic.net/stackoverflow/img/favicon.ico", site.FaviconUrl);
+            Assert.Equal("Stack Overflow Chat", site.RelatedSites.Single().Name);
+            Assert.Equal("http://chat.stackoverflow.com", site.RelatedSites.Single().SiteUrl);
+            Assert.Equal("chat", site.RelatedSites.Single().Relation);
+            Assert.Equal("Prettify", site.MarkdownExtensions.Single());
         }
     }
 }

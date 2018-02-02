@@ -1,23 +1,23 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass] // these actually talk over the network
+    // these actually talk over the network
     public class IntegrationTests
     {
-        [TestMethod]
+        [Fact]
         public void BasicTestNoManager()
         {
             var client = new StacManClient();
 
             var sites = client.Sites.GetAll(pagesize: 50).Result;
-            Assert.AreEqual("http://api.stackexchange.com/2.0/sites?pagesize=50", sites.ApiUrl);
-            Assert.AreEqual(50, sites.Data.Items.Count());
-            Assert.IsTrue(sites.Data.HasMore);
+            Assert.Equal("http://api.stackexchange.com/2.0/sites?pagesize=50", sites.ApiUrl);
+            Assert.Equal(50, sites.Data.Items.Count());
+            Assert.True(sites.Data.HasMore);
         }
-        [TestMethod]
+        [Fact]
         public void BasicTestWithManager()
         {
             var client = new StacManClient();
@@ -31,14 +31,14 @@ namespace StackExchange.StacMan.Tests
             });
 
             var sites = client.Sites.GetAll(pagesize: 50).Result;
-            Assert.AreEqual("http://api.stackexchange.com/2.0/sites?pagesize=50", sites.ApiUrl);
-            Assert.AreEqual(50, sites.Data.Items.Count());
-            Assert.IsTrue(sites.Data.HasMore);
+            Assert.Equal("http://api.stackexchange.com/2.0/sites?pagesize=50", sites.ApiUrl);
+            Assert.Equal(50, sites.Data.Items.Count());
+            Assert.True(sites.Data.HasMore);
 
             lock (urls)
             {
-                Assert.AreEqual(1, urls.Count);
-                Assert.AreEqual("http://api.stackexchange.com/2.0/sites?pagesize=50", urls[0]);
+                Assert.Equal(1, urls.Count);
+                Assert.Equal("http://api.stackexchange.com/2.0/sites?pagesize=50", urls[0]);
             }
         }
 

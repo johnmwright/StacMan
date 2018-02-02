@@ -1,17 +1,15 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System;
+using System.Linq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class QuestionMethodTests
     {
-        [TestMethod]
+        [Fact]
         public void Questions_get_all_test()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -22,29 +20,29 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Questions.GetAll("gaming", pagesize: 1, fromdate: new DateTime(2012, 2, 1, 0, 0, 0, DateTimeKind.Utc), order: Order.Desc, sort: Questions.AllSort.Activity, tagged: "starcraft-2").Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var question = result.Data.Items.Single();
-            Assert.AreEqual(1334545016L.ToDateTime(), question.LastEditDate);
-            Assert.AreEqual(1334446664L.ToDateTime(), question.CreationDate);
-            Assert.AreEqual(1334566818L.ToDateTime(), question.LastActivityDate);
-            Assert.AreEqual(1, question.Score);
-            Assert.AreEqual(2, question.AnswerCount);
-            Assert.AreEqual("Why does the &#39;favored&#39; rating change from start of game to end of game in Starcraft 2?", question.Title);
-            Assert.AreEqual(2, question.Tags.Length);
-            Assert.AreEqual("starcraft-2", question.Tags.First());
-            Assert.AreEqual(96, question.ViewCount);
-            Assert.AreEqual(2030, question.Owner.UserId);
-            Assert.AreEqual("Kelsey", question.Owner.DisplayName);
-            Assert.AreEqual(273, question.Owner.Reputation);
-            Assert.AreEqual(Users.UserType.Registered, question.Owner.UserType);
-            Assert.AreEqual("http://www.gravatar.com/avatar/395b66642a372ee82bbc821bdc2697a4?d=identicon&r=PG", question.Owner.ProfileImage);
-            Assert.AreEqual("http://gaming.stackexchange.com/users/2030/kelsey", question.Owner.Link);
-            Assert.AreEqual("http://gaming.stackexchange.com/questions/62531/why-does-the-favored-rating-change-from-start-of-game-to-end-of-game-in-starcr", question.Link);
-            Assert.IsTrue(question.IsAnswered);
+            Assert.Equal(1334545016L.ToDateTime(), question.LastEditDate);
+            Assert.Equal(1334446664L.ToDateTime(), question.CreationDate);
+            Assert.Equal(1334566818L.ToDateTime(), question.LastActivityDate);
+            Assert.Equal(1, question.Score);
+            Assert.Equal(2, question.AnswerCount);
+            Assert.Equal("Why does the &#39;favored&#39; rating change from start of game to end of game in Starcraft 2?", question.Title);
+            Assert.Equal(2, question.Tags.Length);
+            Assert.Equal("starcraft-2", question.Tags.First());
+            Assert.Equal(96, question.ViewCount);
+            Assert.Equal(2030, question.Owner.UserId);
+            Assert.Equal("Kelsey", question.Owner.DisplayName);
+            Assert.Equal(273, question.Owner.Reputation);
+            Assert.Equal(Users.UserType.Registered, question.Owner.UserType);
+            Assert.Equal("http://www.gravatar.com/avatar/395b66642a372ee82bbc821bdc2697a4?d=identicon&r=PG", question.Owner.ProfileImage);
+            Assert.Equal("http://gaming.stackexchange.com/users/2030/kelsey", question.Owner.Link);
+            Assert.Equal("http://gaming.stackexchange.com/questions/62531/why-does-the-favored-rating-change-from-start-of-game-to-end-of-game-in-starcr", question.Link);
+            Assert.True(question.IsAnswered);
         }
 
-        [TestMethod]
+        [Fact]
         public void Questions_by_id_test()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -55,20 +53,20 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Questions.GetByIds("gaming", new int[] { 13332 }, order: Order.Desc, sort: Questions.Sort.Activity).Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var question = result.Data.Items.Single();
-            Assert.AreEqual(13332, question.QuestionId);
-            Assert.IsNull(question.AcceptedAnswerId);
-            Assert.AreEqual(161024, question.MigratedFrom.QuestionId);
-            Assert.AreEqual("Super User", question.MigratedFrom.OtherSite.Name);
-            Assert.AreEqual("#1086A4", question.MigratedFrom.OtherSite.Styling.LinkColor);
-            Assert.AreEqual(2, question.MigratedFrom.OtherSite.RelatedSites.Length);
-            Assert.AreEqual(question.Tags.Length, 3);
-            Assert.AreEqual("gcc", question.Owner.DisplayName);
-            Assert.AreEqual(Users.UserType.DoesNotExist, question.Owner.UserType);
-            Assert.IsNull(question.Owner.UserId);
-            Assert.IsNull(question.Owner.Reputation);
+            Assert.Equal(13332, question.QuestionId);
+            Assert.Null(question.AcceptedAnswerId);
+            Assert.Equal(161024, question.MigratedFrom.QuestionId);
+            Assert.Equal("Super User", question.MigratedFrom.OtherSite.Name);
+            Assert.Equal("#1086A4", question.MigratedFrom.OtherSite.Styling.LinkColor);
+            Assert.Equal(2, question.MigratedFrom.OtherSite.RelatedSites.Length);
+            Assert.Equal(question.Tags.Length, 3);
+            Assert.Equal("gcc", question.Owner.DisplayName);
+            Assert.Equal(Users.UserType.DoesNotExist, question.Owner.UserType);
+            Assert.Null(question.Owner.UserId);
+            Assert.Null(question.Owner.Reputation);
         }
     }
 }

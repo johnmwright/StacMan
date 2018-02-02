@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
+
 
 namespace StackExchange.StacMan
 {
@@ -65,8 +65,6 @@ namespace StackExchange.StacMan
         /// <para>Default is true.</para>
         /// </summary>
         public bool RespectBackoffs { get; set; }
-
-        private readonly JavaScriptSerializer Serializer = new JavaScriptSerializer();
 
         private Task<StacManResponse<T>> CreateApiTask<T>(ApiUrlBuilder ub, HttpMethod httpMethod, string backoffKey) where T : StacManType
         {
@@ -161,7 +159,7 @@ namespace StackExchange.StacMan
                     try
                     {
                         response.RawData = rawData;
-                        response.Data = ParseApiResponse<Wrapper<T>>(Serializer.Deserialize<Dictionary<string, object>>(response.RawData), backoffKey);
+                        response.Data = ParseApiResponse<Wrapper<T>>(JsonConvert.DeserializeObject<Dictionary<string, object>>(response.RawData), backoffKey);
 
                         if (response.Data.ErrorId.HasValue)
                             throw new Exceptions.StackExchangeApiException(response.Data.ErrorId.Value, response.Data.ErrorName, response.Data.ErrorMessage);

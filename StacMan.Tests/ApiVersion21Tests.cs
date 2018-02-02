@@ -1,17 +1,15 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System;
+using System.Linq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class ApiVersion21Tests
     {
-        [TestMethod]
+        [Fact]
         public void Answer_tags_test()
         {
             var mock20 = new Mock<StacManClient>(null, "2.0");
@@ -28,18 +26,18 @@ namespace StackExchange.StacMan.Tests
             var result20 = client20.Answers.GetAll("stackoverflow.com", pagesize: 1, order: Order.Desc, sort: Answers.Sort.Activity, filter: "!9hnGsz84b").Result;
             var result21 = client21.Answers.GetAll("stackoverflow.com", pagesize: 1, order: Order.Desc, sort: Answers.Sort.Activity, filter: "!9hnGsz84b").Result;
 
-            Assert.IsTrue(result20.Success);
-            Assert.IsTrue(result21.Success);
+            Assert.True(result20.Success);
+            Assert.True(result21.Success);
 
             var answer20 = result20.Data.Items.Single();
             var answer21 = result21.Data.Items.Single();
 
-            Assert.IsNull(answer20.Tags);
-            Assert.IsNotNull(answer21.Tags);
-            Assert.AreEqual(3, answer21.Tags.Length);
+            Assert.Null(answer20.Tags);
+            Assert.NotNull(answer21.Tags);
+            Assert.Equal(3, answer21.Tags.Length);
         }
 
-        [TestMethod]
+        [Fact]
         public void Merge_get_test()
         {
             var mock = new Mock<StacManClient>(null, "2.1");
@@ -50,19 +48,19 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Users.GetMerges(new int[] { 1450259 }).Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var merge = result.Data.Items.Single();
-            Assert.AreEqual(2885329, merge.OldAccountId);
-            Assert.AreEqual(1450259, merge.NewAccountId);
-            Assert.AreEqual(1371139987L.ToDateTime(), merge.MergeDate);
+            Assert.Equal(2885329, merge.OldAccountId);
+            Assert.Equal(1450259, merge.NewAccountId);
+            Assert.Equal(1371139987L.ToDateTime(), merge.MergeDate);
         }
 
         /// <summary>
         /// A vectorized version of this method was introduced in 2.1:
         /// http://api.stackexchange.com/docs/change-log
         /// </summary>
-        [TestMethod]
+        [Fact]
         public void User_top_answer_tags_vectorized_test()
         {
             var mock = new Mock<StacManClient>(null, "2.1");
@@ -77,14 +75,14 @@ namespace StackExchange.StacMan.Tests
             var result = client.Users.GetTopAnswerTags("stackoverflow", 1, pagesize: 3).Result;
             var resultVectorized = client.Users.GetTopAnswerTags("stackoverflow.com", new int[] { 1, 3 }, pagesize: 3).Result;
 
-            Assert.IsTrue(result.Success);
-            Assert.IsTrue(resultVectorized.Success);
+            Assert.True(result.Success);
+            Assert.True(resultVectorized.Success);
 
-            Assert.AreEqual(1, result.Data.Items.Select(i => i.UserId).Distinct().Count());
-            Assert.AreEqual(2, resultVectorized.Data.Items.Select(i => i.UserId).Distinct().Count());
+            Assert.Equal(1, result.Data.Items.Select(i => i.UserId).Distinct().Count());
+            Assert.Equal(2, resultVectorized.Data.Items.Select(i => i.UserId).Distinct().Count());
         }
 
-        [TestMethod]
+        [Fact]
         public void Api_version_mismatch_test()
         {
             var mock = new Mock<StacManClient>(null, "2.0");
@@ -94,7 +92,7 @@ namespace StackExchange.StacMan.Tests
             Assert2.Throws<InvalidOperationException>(() => client.Users.GetTopAnswerTags("stackoverflow.com", new int[] { 1, 3 }, pagesize: 3));
         }
 
-        [TestMethod]
+        [Fact]
         public void Notice_test()
         {
             var mock = new Mock<StacManClient>(null, "2.1");
@@ -105,16 +103,16 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Questions.GetByIds("stackoverflow", new int[] { 7399584 }, order: Order.Desc, sort: Questions.Sort.Activity, filter: "!9hnGsqOrt").Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var question = result.Data.Items.Single();
-            Assert.IsNotNull(question.Notice);
-            Assert.AreEqual("<p>I would like to know why there is a change in performance after 1.5M inserts. Where is the change in the graph from one pattern to another coming from. I expect some kind of a prove.</p>", question.Notice.Body);
-            Assert.AreEqual(1316505623L.ToDateTime(), question.Notice.CreationDate);
-            Assert.AreEqual(546051, question.Notice.OwnerUserId);
+            Assert.NotNull(question.Notice);
+            Assert.Equal("<p>I would like to know why there is a change in performance after 1.5M inserts. Where is the change in the graph from one pattern to another coming from. I expect some kind of a prove.</p>", question.Notice.Body);
+            Assert.Equal(1316505623L.ToDateTime(), question.Notice.CreationDate);
+            Assert.Equal(546051, question.Notice.OwnerUserId);
         }
 
-        [TestMethod]
+        [Fact]
         public void Reputation_history_test()
         {
             var mock = new Mock<StacManClient>(null, "2.1");
@@ -125,17 +123,17 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Users.GetReputationHistory("stackoverflow", new int[] { 2749 }, pagesize: 3).Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var second = result.Data.Items[1];
-            Assert.AreEqual(2749, second.UserId);
-            Assert.AreEqual(1370754616L.ToDateTime(), second.CreationDate);
-            Assert.AreEqual(10731127, second.PostId);
-            Assert.AreEqual(10, second.ReputationChange);
-            Assert.AreEqual(ReputationHistories.ReputationHistoryType.PostUpvoted, second.ReputationHistoryType);
+            Assert.Equal(2749, second.UserId);
+            Assert.Equal(1370754616L.ToDateTime(), second.CreationDate);
+            Assert.Equal(10731127, second.PostId);
+            Assert.Equal(10, second.ReputationChange);
+            Assert.Equal(ReputationHistories.ReputationHistoryType.PostUpvoted, second.ReputationHistoryType);
         }
 
-        [TestMethod]
+        [Fact]
         public void Comment_add_test()
         {
             var mock = new Mock<StacManClient>(null, "2.1");
@@ -146,13 +144,13 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Posts.AddComment("stackoverflow", "access_token_123", 4490791, "This is a comment that I'm adding via the API!", preview: true).Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
             var comment = result.Data.Items.Single();
-            Assert.AreEqual(4490791, comment.PostId);
+            Assert.Equal(4490791, comment.PostId);
         }
 
-        [TestMethod]
+        [Fact]
         public void Comment_delete_test()
         {
             var mock = new Mock<StacManClient>(null, "2.1");
@@ -163,10 +161,10 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Comments.Delete("stackoverflow", "access_token_123", 4721972).Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
 
-            Assert.AreEqual(0, result.Data.Items.Length);
-            Assert.AreEqual(10000, result.Data.QuotaMax);
+            Assert.Equal(0, result.Data.Items.Length);
+            Assert.Equal(10000, result.Data.QuotaMax);
         }
     }
 }

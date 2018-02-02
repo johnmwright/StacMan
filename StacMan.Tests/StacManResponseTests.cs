@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class StacManResponseTests
     {
-        [TestMethod]
+        [Fact]
         public void Api_web_exception_response()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -21,15 +17,15 @@ namespace StackExchange.StacMan.Tests
             
             var response = client.Users.GetAll("gaming.stackexchange.com").Result;
             
-            Assert.IsFalse(response.Success);
-            Assert.IsNull(response.Data);
-            Assert.IsInstanceOfType(response.Error, typeof(System.Net.WebException));
-            Assert.IsFalse(response.ReceivedApiResponse);
-            Assert.IsNotNull(response.ApiUrl);
-            Assert.IsNull(response.RawData);
+            Assert.False(response.Success);
+            Assert.Null(response.Data);
+            Assert.IsType<System.Net.WebException>(response.Error);
+            Assert.False(response.ReceivedApiResponse);
+            Assert.NotNull(response.ApiUrl);
+            Assert.Null(response.RawData);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_response_debugging_properties()
         {
             var mock = new Mock<StacManClient>("myappkey", null);
@@ -40,14 +36,14 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var response = client.SuggestedEdits.GetAll("superuser", pagesize: 2).Result;
-            Assert.IsTrue(response.ApiUrl.Contains("site=superuser"));
-            Assert.IsTrue(response.ApiUrl.Contains("pagesize=2"));
-            Assert.IsTrue(response.ApiUrl.Contains("key=myappkey"));
+            Assert.True(response.ApiUrl.Contains("site=superuser"));
+            Assert.True(response.ApiUrl.Contains("pagesize=2"));
+            Assert.True(response.ApiUrl.Contains("key=myappkey"));
 
-            Assert.IsNotNull(response.RawData);
+            Assert.NotNull(response.RawData);
         }
 
-        [TestMethod]
+        [Fact]
         public void Stack_Exchange_API_Exception_response()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -59,17 +55,17 @@ namespace StackExchange.StacMan.Tests
 
             var response = client.Inbox.Get("foo").Result;
 
-            Assert.IsFalse(response.Success);
-            Assert.IsTrue(response.ReceivedApiResponse);
-            Assert.IsNotNull(response.RawData);
-            Assert.IsInstanceOfType(response.Error, typeof(Exceptions.StackExchangeApiException));
-            Assert.AreEqual(405, ((Exceptions.StackExchangeApiException)response.Error).ErrorId);
-            Assert.AreEqual("key_required", ((Exceptions.StackExchangeApiException)response.Error).ErrorName);
-            Assert.AreEqual("`key` is required when `access_token` is passed.", ((Exceptions.StackExchangeApiException)response.Error).ErrorMessage);
-            Assert.IsNull(response.Data.Items);
-            Assert.AreEqual(405, response.Data.ErrorId);
-            Assert.AreEqual("key_required", response.Data.ErrorName);
-            Assert.AreEqual("`key` is required when `access_token` is passed.", response.Data.ErrorMessage);
+            Assert.False(response.Success);
+            Assert.True(response.ReceivedApiResponse);
+            Assert.NotNull(response.RawData);
+            Assert.IsType<Exceptions.StackExchangeApiException>(response.Error);
+            Assert.Equal(405, ((Exceptions.StackExchangeApiException)response.Error).ErrorId);
+            Assert.Equal("key_required", ((Exceptions.StackExchangeApiException)response.Error).ErrorName);
+            Assert.Equal("`key` is required when `access_token` is passed.", ((Exceptions.StackExchangeApiException)response.Error).ErrorMessage);
+            Assert.Null(response.Data.Items);
+            Assert.Equal(405, response.Data.ErrorId);
+            Assert.Equal("key_required", response.Data.ErrorName);
+            Assert.Equal("`key` is required when `access_token` is passed.", response.Data.ErrorMessage);
         }
     }
 }

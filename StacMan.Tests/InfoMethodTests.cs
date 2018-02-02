@@ -1,17 +1,14 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Moq;
 using StackExchange.StacMan.Tests.Utilities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System.Linq;
+using Xunit;
 
 namespace StackExchange.StacMan.Tests
 {
-    [TestClass]
+
     public class InfoMethodTests
     {
-        [TestMethod]
+        [Fact]
         public void Info_get_test()
         {
             var mock = new Mock<StacManClient>(null, null);
@@ -22,23 +19,23 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var result = client.Info.Get("english").Result;
-            Assert.IsTrue(result.Success);
+            Assert.True(result.Success);
             
             var info = result.Data.Items.Single();
-            Assert.AreEqual(14647, info.TotalQuestions);
-            Assert.AreEqual(15, info.TotalUnanswered);
-            Assert.AreEqual(10674, info.TotalAccepted);
-            Assert.AreEqual(41975, info.TotalAnswers);
-            Assert.AreEqual(.01m, info.QuestionsPerMinute);
-            Assert.AreEqual(.02m, info.AnswersPerMinute);
-            Assert.AreEqual(112674, info.TotalComments);
-            Assert.AreEqual(251459, info.TotalVotes);
-            Assert.AreEqual(41800, info.TotalBadges);
-            Assert.AreEqual(.02m, info.BadgesPerMinute);
-            Assert.AreEqual(17118, info.TotalUsers);
-            Assert.AreEqual(1, info.NewActiveUsers);
-            Assert.AreEqual("2012.4.12.2100", info.ApiRevision);
-            Assert.IsNull(info.Site);
+            Assert.Equal(14647, info.TotalQuestions);
+            Assert.Equal(15, info.TotalUnanswered);
+            Assert.Equal(10674, info.TotalAccepted);
+            Assert.Equal(41975, info.TotalAnswers);
+            Assert.Equal(.01m, info.QuestionsPerMinute);
+            Assert.Equal(.02m, info.AnswersPerMinute);
+            Assert.Equal(112674, info.TotalComments);
+            Assert.Equal(251459, info.TotalVotes);
+            Assert.Equal(41800, info.TotalBadges);
+            Assert.Equal(.02m, info.BadgesPerMinute);
+            Assert.Equal(17118, info.TotalUsers);
+            Assert.Equal(1, info.NewActiveUsers);
+            Assert.Equal("2012.4.12.2100", info.ApiRevision);
+            Assert.Null(info.Site);
         }
     }
 }
