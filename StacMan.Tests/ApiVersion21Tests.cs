@@ -78,7 +78,7 @@ namespace StackExchange.StacMan.Tests
             Assert.True(result.Success);
             Assert.True(resultVectorized.Success);
 
-            Assert.Equal(1, result.Data.Items.Select(i => i.UserId).Distinct().Count());
+            Assert.Single(result.Data.Items.Select(i => i.UserId).Distinct());
             Assert.Equal(2, resultVectorized.Data.Items.Select(i => i.UserId).Distinct().Count());
         }
 
@@ -134,6 +134,23 @@ namespace StackExchange.StacMan.Tests
         }
 
         [Fact]
+        public void Reputation_Get_test()
+        {
+            var mock = new Mock<StacManClient>(null, "2.1");
+
+            // http://api.stackexchange.com/2.1/users/23354/reputation?pagesize=5&site=stackoverflow
+            mock.FakePOST(response: @"{""items"":[{""on_date"":1517605522,""reputation_change"":564,""vote_type"":""up_votes"",""post_type"":""answer"",""post_id"":26354677,""user_id"":23354},{""on_date"":1517601781,""reputation_change"":1412,""vote_type"":""up_votes"",""post_type"":""answer"",""post_id"":564373,""user_id"":23354},{""on_date"":1517601391,""reputation_change"":3024,""vote_type"":""up_votes"",""post_type"":""answer"",""post_id"":730255,""user_id"":23354},{""on_date"":1517601286,""reputation_change"":15,""vote_type"":""accepts"",""post_type"":""answer"",""post_id"":48564954,""user_id"":23354},{""on_date"":1517591773,""reputation_change"":1534,""vote_type"":""up_votes"",""post_type"":""answer"",""post_id"":584840,""user_id"":23354}],""has_more"":true,""quota_max"":300,""quota_remaining"":294}");
+
+            var client = mock.Object;
+
+            var result = client.Users.GetReputation("stackoverflow", new[] { 23354 }, pagesize: 5).Result;
+            Assert.True(result.Success);
+
+            var items = result.Data.Items;
+            Assert.Equal(5, items.Length);
+        }
+
+        [Fact]
         public void Comment_add_test()
         {
             var mock = new Mock<StacManClient>(null, "2.1");
@@ -163,7 +180,7 @@ namespace StackExchange.StacMan.Tests
             var result = client.Comments.Delete("stackoverflow", "access_token_123", 4721972).Result;
             Assert.True(result.Success);
 
-            Assert.Equal(0, result.Data.Items.Length);
+            Assert.Empty(result.Data.Items);
             Assert.Equal(10000, result.Data.QuotaMax);
         }
     }

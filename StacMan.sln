@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30626.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27323.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StacMan", "StacMan\StacMan.csproj", "{3C310AC6-6229-41FB-B33F-8381CF4FECBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StacMan", "StacMan\StacMan.csproj", "{3C310AC6-6229-41FB-B33F-8381CF4FECBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StacMan.Tests", "StacMan.Tests\StacMan.Tests.csproj", "{5FBD3A5B-93AE-43B7-9566-C7D08A71C8E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StacMan.Tests", "StacMan.Tests\StacMan.Tests.csproj", "{5FBD3A5B-93AE-43B7-9566-C7D08A71C8E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{940A5141-7F86-40E6-BB3D-046EE0A79FB7}"
 	ProjectSection(SolutionItems) = preProject
@@ -38,6 +38,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B633E22D-F368-4858-B434-3F50A766CF2C}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution

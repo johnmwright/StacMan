@@ -29,7 +29,7 @@ namespace StackExchange.StacMan.Tests
             Assert.Equal("badge", wrapper.Type);
             Assert.Equal(273, wrapper.QuotaRemaining);
             Assert.Equal(300, wrapper.QuotaMax);
-            Assert.Equal(true, wrapper.HasMore);
+            Assert.True(wrapper.HasMore);
             Assert.Null(wrapper.Backoff);
             Assert.Null(wrapper.ErrorId);
             Assert.Null(wrapper.ErrorName);

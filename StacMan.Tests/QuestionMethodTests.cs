@@ -62,7 +62,7 @@ namespace StackExchange.StacMan.Tests
             Assert.Equal("Super User", question.MigratedFrom.OtherSite.Name);
             Assert.Equal("#1086A4", question.MigratedFrom.OtherSite.Styling.LinkColor);
             Assert.Equal(2, question.MigratedFrom.OtherSite.RelatedSites.Length);
-            Assert.Equal(question.Tags.Length, 3);
+            Assert.Equal(3, question.Tags.Length);
             Assert.Equal("gcc", question.Owner.DisplayName);
             Assert.Equal(Users.UserType.DoesNotExist, question.Owner.UserType);
             Assert.Null(question.Owner.UserId);

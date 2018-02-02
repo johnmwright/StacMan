@@ -36,9 +36,9 @@ namespace StackExchange.StacMan.Tests
             var client = mock.Object;
 
             var response = client.SuggestedEdits.GetAll("superuser", pagesize: 2).Result;
-            Assert.True(response.ApiUrl.Contains("site=superuser"));
-            Assert.True(response.ApiUrl.Contains("pagesize=2"));
-            Assert.True(response.ApiUrl.Contains("key=myappkey"));
+            Assert.Contains("site=superuser", response.ApiUrl);
+            Assert.Contains("pagesize=2", response.ApiUrl);
+            Assert.Contains("key=myappkey", response.ApiUrl);
 
             Assert.NotNull(response.RawData);
         }

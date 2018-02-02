@@ -37,7 +37,7 @@ namespace StackExchange.StacMan.Tests
 
             lock (urls)
             {
-                Assert.Equal(1, urls.Count);
+                Assert.Single(urls);
                 Assert.Equal("http://api.stackexchange.com/2.0/sites?pagesize=50", urls[0]);
             }
         }
