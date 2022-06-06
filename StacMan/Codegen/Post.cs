@@ -21,6 +21,12 @@ namespace StackExchange.StacMan
         public string Body { get; internal set; }
 
         /// <summary>
+        /// collectives -- introduced in API version 2.3
+        /// </summary>
+        [Field("collectives")]
+        public Collective[] Collectives { get; internal set; }
+
+        /// <summary>
         /// comments
         /// </summary>
         [Field("comments")]
@@ -73,6 +79,12 @@ namespace StackExchange.StacMan
         /// </summary>
         [Field("post_type")]
         public Posts.PostType PostType { get; internal set; }
+
+        /// <summary>
+        /// posted_by_collectives -- introduced in API version 2.3
+        /// </summary>
+        [Field("posted_by_collectives")]
+        public Collective[] PostedByCollectives { get; internal set; }
 
         /// <summary>
         /// score

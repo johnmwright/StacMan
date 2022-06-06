@@ -21,7 +21,7 @@ namespace StackExchange.StacMan
         /// </summary>
         /// <param name="key">Your app's Stack Exchange API V2 key (optional)</param>
         /// <param name="version">Stack Exchange API version, e.g. "2.0" or "2.1"</param>
-        public StacManClient(string key = null, string version = "2.0")
+        public StacManClient(string key = null, string version = "2.3")
         {
             Key = key;
             Version = version;

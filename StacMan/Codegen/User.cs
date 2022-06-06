@@ -51,6 +51,12 @@ namespace StackExchange.StacMan
         public BadgeCount BadgeCounts { get; internal set; }
 
         /// <summary>
+        /// collectives -- introduced in API version 2.3
+        /// </summary>
+        [Field("collectives")]
+        public CollectiveMembership[] Collectives { get; internal set; }
+
+        /// <summary>
         /// creation_date
         /// </summary>
         [Field("creation_date")]

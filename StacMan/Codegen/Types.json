@@ -25,23 +25,45 @@
         "old_account_id(2.1)": "int"
     },
     "answer": {
-        "answer_id": "int",
-        "body": "string",
-        "comments": "Comment[]",
-        "community_owned_date": "DateTime?",
-        "creation_date": "DateTime",
-        "down_vote_count": "int",
-        "is_accepted": "bool",
-        "last_activity_date": "DateTime",
-        "last_edit_date": "DateTime?",
-        "link": "string",
-        "locked_date": "DateTime?",
-        "owner": "ShallowUser",
-        "question_id": "int",
-        "score": "int",
-        "tags(2.1)": "string[]",
-        "title": "string",
-        "up_vote_count": "int"
+      "answer_id": "int",
+      "body": "string",
+      "collectives(2.3)": "Collective[]",
+      "comments": "Comment[]",
+      "community_owned_date": "DateTime?",
+      "content_license(2.2)": "string",
+      "creation_date": "DateTime",
+      "down_vote_count": "int",
+      "is_accepted": "bool",
+      "last_activity_date": "DateTime",
+      "last_edit_date": "DateTime?",
+      "link": "string",
+      "locked_date": "DateTime?",
+      "owner": "ShallowUser",
+      "posted_by_collectives(2.3)": "Collective[]",
+      "question_id": "int",
+      "recommendations": "CollectiveRecommendation[]",
+      "score": "int",
+      "tags(2.1)": "string[]",
+      "title": "string",
+      "up_vote_count": "int"
+    },
+    "article": {
+        "article_id(2.3)": "int",
+        "article_type(2.3)": "string",
+        "body(2.3)": "string",
+        "body_markdown(2.3)": "string",
+        "comment_count(2.3)": "int",
+        "comments(2.3)": "Comment[]",
+        "creation_date(2.3)": "DateTime",
+        "last_activity_date(2.3)": "DateTime",
+        "last_edit_date(2.3)": "DateTime?",
+        "last_editor(2.3)": "ShallowUser",
+        "link(2.3)": "string",
+        "owner(2.3)": "ShallowUser",
+        "score(2.3)": "int",
+        "tags(2.3)":"string[]",
+        "title(2.3)":"string",
+        "view_count(2.3)":"int"
     },
     "badge": {
         "award_count": "int",
@@ -57,6 +79,43 @@
         "bronze": "int",
         "gold": "int",
         "silver": "int"
+    },
+    "collective": {
+        "description(2.3)": "string",
+        "external_links(2.3)": "CollectiveExternalLink[]",
+        "link(2.3)": "string",
+        "name(2.3)": "string",
+        "slug(2.3)": "string",
+        "tags(2.3)": "string[]"
+    },
+    "collective_external_link": {
+        "type(2.3)": "string",
+        "link(2.3)": "string"
+    },
+  "collective_membership": {
+    "collective(2.3)": "Collective",
+    "role(2.3)": "Collectives.Role"
+  },
+    "collective_recommendation": {
+      "collective(2.3)": "Collective",
+      "creation_date(2.3)":  "DateTime" 
+    }, 
+    "collective_report": {
+        "activity_report_dimensions(2.3)": "Collectives.ReportDimension[]",
+        "collective(2.3)": "Collective",
+        "creation_date(2.3)": "DateTime",
+        "dimensions(2.3)": "string[]",
+        "download_link(2.3)": "string",
+        "end_date(2.3)": "DateTime",
+        "health_report_dimensions(2.3)": "Collectives.ReportDimension[]",
+        "included_tags(2.3)": "string[]",
+        "metrics(2.3)": "string[]",
+        "name(2.3)": "string",
+        "report_id(2.3)": "int?",
+        "report_type(2.3)": "Collectives.ReportType",
+        "start_date(2.3)": "DateTime",
+        "state(2.3)": "Collectives.ReportState",
+        "users_report_dimensions(2.3)": "Collectives.ReportDimension[]"
     },
     "comment": {
         "body": "string",
@@ -149,6 +208,7 @@
     },
     "post": {
         "body": "string",
+        "collectives(2.3)": "Collective[]",
         "comments": "Comment[]",
         "creation_date": "DateTime",
         "down_vote_count": "int",
@@ -158,6 +218,7 @@
         "owner": "ShallowUser",
         "post_id": "int",
         "post_type": "Posts.PostType",
+        "posted_by_collectives(2.3)": "Collective[]",
         "score": "int",
         "up_vote_count": "int"
     },
@@ -255,6 +316,7 @@
     },
     "shallow_user": {
         "accept_rate": "int?",
+        "account_id(2.3)": "int",
         "display_name": "string",
         "link": "string",
         "profile_image": "string",
@@ -345,6 +407,7 @@
         "age": "int?",
         "answer_count": "int",
         "badge_counts": "BadgeCount",
+        "collectives(2.3)": "CollectiveMembership[]",
         "creation_date": "DateTime",
         "display_name": "string",
         "down_vote_count": "int",

@@ -21,6 +21,12 @@ namespace StackExchange.StacMan
         public int? AcceptRate { get; internal set; }
 
         /// <summary>
+        /// account_id -- introduced in API version 2.3
+        /// </summary>
+        [Field("account_id")]
+        public int AccountId { get; internal set; }
+
+        /// <summary>
         /// display_name
         /// </summary>
         [Field("display_name")]

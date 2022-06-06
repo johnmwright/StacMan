@@ -49,18 +49,62 @@
             "returnType": "Comment"
         }
     },
-    "Application": {
-        "Deauthenticate": {
-            "url": "/apps/{accessTokens}/de-authenticate",
-            "description": "Allows an application to de-authorize itself for a set of users.",
-            "isNetworkMethod": true,
-            "hasPaging": true,
-            "required": {
-                "accessTokens": "IEnumerable<string>"
-            },
-            "returnType": "AccessToken"
-        }
+  "Application": {
+    "Deauthenticate": {
+      "url": "/apps/{accessTokens}/de-authenticate",
+      "description": "Allows an application to de-authorize itself for a set of users.",
+      "isNetworkMethod": true,
+      "hasPaging": true,
+      "required": {
+        "accessTokens": "IEnumerable<string>"
+      },
+      "returnType": "AccessToken"
+    }
+  },
+  "Article": {
+    "GetAll": {
+      "url": "/articles",
+      "description": "Get all Articles on the site.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true,
+      "returnType": "Article",
+      "sortType": "Articles.Sort",
+      "optional": {
+        "tagged": "string"
+      }
     },
+    "GetByIds": {
+      "url": "/articles/{ids}",
+      "description": "Get Articles identified by a set of ids.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true,
+      "returnType": "Article",
+      "sortType": "Articles.Sort",
+      "required": {
+        "ids": "IEnumerable<string>"
+      }
+    },
+    "GetLinked": {
+      "url": "/articles/{ids}/linked",
+      "description": "Get questions which are linked to the articles.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true,
+      "returnType": "Question",
+      "sortType": "Questions.RelatedSort",
+      "required": {
+        "ids": "IEnumerable<string>"
+      }
+    }
+  }, 
     "Badge": {
         "GetAll": {
             "url": "/badges",
@@ -118,6 +162,85 @@
             }
         }
     },
+  "Collective": {
+    "GetAll": {
+      "url": "/collectives",
+      "description": "Get all Collectives on the site.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true
+    },
+    "GetBySlug": {
+      "url": "/collectives/{slugs}",
+      "description": "Get Collectives identified by a set of slugs.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true,
+      "required": {
+        "slugs": "IEnumerable<string>"
+      }
+    },
+    "GetQuestions": {
+      "url": "/collectives/{slugs}/questions",
+      "description": "Get Questions associated with Collectives via tags.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true,
+      "returnType": "Question",
+      "sortType": "Questions.Sort",
+      "required": {
+        "slugs": "IEnumerable<string>"
+      }
+    },
+    "GetAnswers": {
+      "url": "/collectives/{slugs}/answers",
+      "description": "Get Answers associated with Collectives via tags.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true,
+      "returnType": "Answer",
+      "sortType": "Answers.Sort",
+      "required": {
+        "slugs": "IEnumerable<string>"
+      }
+    },
+    "GetTags": {
+      "url": "/collectives/{slugs}/tags",
+      "description": "Get Tags associated with Collectives.",
+      "minApiVersion": "2.3",
+      "authRequired": false,
+      "httpMethod": "GET",
+      "hasPaging": true,
+      "hasFromToDate": true,
+      "returnType": "Tag",
+      "sortType": "Tags.Sort",
+      "required": {
+        "slugs": "IEnumerable<string>"
+      },
+      "GetUsers": {
+        "url": "/collectives/{slugs}/users",
+        "description": "Get Users who are members of the Collectives.",
+        "minApiVersion": "2.3",
+        "authRequired": false,
+        "httpMethod": "GET",
+        "hasPaging": true,
+        "hasFromToDate": true,
+        "returnType": "User",
+        "sortType": "Users.Sort",
+        "required": {
+          "slugs": "IEnumerable<string>"
+        }
+      }
+    }
+  },
     "Comment": {
         "GetAll": {
             "url": "/comments",

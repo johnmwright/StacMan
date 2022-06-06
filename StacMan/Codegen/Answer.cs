@@ -27,6 +27,12 @@ namespace StackExchange.StacMan
         public string Body { get; internal set; }
 
         /// <summary>
+        /// collectives -- introduced in API version 2.3
+        /// </summary>
+        [Field("collectives")]
+        public Collective[] Collectives { get; internal set; }
+
+        /// <summary>
         /// comments
         /// </summary>
         [Field("comments")]
@@ -37,6 +43,12 @@ namespace StackExchange.StacMan
         /// </summary>
         [Field("community_owned_date")]
         public DateTime? CommunityOwnedDate { get; internal set; }
+
+        /// <summary>
+        /// content_license
+        /// </summary>
+        [Field("content_license")]
+        public string ContentLicense { get; internal set; }
 
         /// <summary>
         /// creation_date
@@ -87,10 +99,22 @@ namespace StackExchange.StacMan
         public ShallowUser Owner { get; internal set; }
 
         /// <summary>
+        /// posted_by_collectives -- introduced in API version 2.3
+        /// </summary>
+        [Field("posted_by_collectives")]
+        public Collective[] PostedByCollectives { get; internal set; }
+
+        /// <summary>
         /// question_id
         /// </summary>
         [Field("question_id")]
         public int QuestionId { get; internal set; }
+
+        /// <summary>
+        /// recommendations
+        /// </summary>
+        [Field("recommendations")]
+        public CollectiveRecommendation[] Recommendations { get; internal set; }
 
         /// <summary>
         /// score
